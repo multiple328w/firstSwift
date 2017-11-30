@@ -78,9 +78,9 @@ class WebViewController: UIViewController {
         removeWebObserver()
     }
 
-    @IBOutlet weak var backButton: UIBarButtonItem?
-    @IBOutlet weak var forwardButton: UIBarButtonItem?
-    @IBOutlet weak var reloadButton: UIBarButtonItem?
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         print("keyPath \(String(describing: keyPath))")
@@ -91,17 +91,18 @@ class WebViewController: UIViewController {
             navigationItem.title = webView.title
         }
         else if keyPath == "loading" {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = webView?.isLoading ?? false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = webView.isLoading
             // リロードボタンと読み込み停止ボタンの有効・無効を切り替える
-            reloadButton?.isEnabled = !webView.isLoading
-            backButton?.isEnabled = webView.canGoBack
-            forwardButton?.isEnabled = webView.canGoForward
+            reloadButton.isEnabled = !webView.isLoading
+            backButton.isEnabled = webView.canGoBack
+            forwardButton.isEnabled = webView.canGoForward
         }
         else if keyPath == "canGoBack" {
-            backButton?.isEnabled = webView.canGoBack
+            backButton.isEnabled = webView.canGoBack
         }
         else if keyPath == "canGorForward" {
-            forwardButton?.isEnabled = webView.canGoForward
+            forwardButton.isEnabled = webView.canGoForward
         }
     }
 }
+
